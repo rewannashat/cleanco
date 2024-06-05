@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,7 @@ import '../resources/font-manager.dart';
 
 class SetUpPassView extends StatelessWidget {
   const SetUpPassView({super.key});
+  static GlobalKey<FormState> textGlobalKey = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,174 +28,160 @@ class SetUpPassView extends StatelessWidget {
 
     LoginCubit cubit = LoginCubit.get(context);
 
-    final textGlobalKey = GlobalKey<FormState>();
+
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 150.h,
-              child: Stack(
-                children: [
-                  Positioned(
-                      top: -100,right: -50,
-                      child: Image.asset('assets/images/bubbleRegister.png')),
-                  Positioned(
-                      top: 0,right: -10,
-                      child: Image.asset('assets/images/bubbleRegist2.png')),
-                ],
-              ),
-            ),
-            Stack(children:[
-              Center(
-                child: Material(
-                  elevation: 5, // Adjust elevation as needed
-                  shape: CircleBorder(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorsManager.whiteColor, // White background color
-                      shape: BoxShape.circle,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+          child: Form(
+            key: textGlobalKey,
+            child: Column(
+              children: [
+                SizedBox(height: 80.h,),
+                Stack(children:[
+                  Center(
+                    child: Material(
+                      elevation: 5, // Adjust elevation as needed
+                      shape: CircleBorder(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorsManager.whiteColor, // White background color
+                          shape: BoxShape.circle,
+                        ),
+                        width: 125.w, // Adjust size as needed
+                        height: 85.h,
+                      ),
                     ),
-                    width: 125.w, // Adjust size as needed
-                    height: 85.h,
+                  ),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/registPerson.png', // Replace with your image path
+                      width: 90.w, // Adjust image size as needed
+                      height:85.h,
+                    ),
+                  ),
+                ],
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 80,vertical: 25),
+                  child: FittedBox(
+                    child: CustomText(
+                      txt: 'Setup New Password',
+                      color: ColorsManager.blackColor,
+                      fontfamily: FontManager.fontFamilyApp,
+                      fontWeight: FontWightManager.fontWeightBold,
+                      fontSize: FontSize.s28.sp,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: Image.asset(
-                  'assets/images/registPerson.png', // Replace with your image path
-                  width: 90.w, // Adjust image size as needed
-                  height:85.h,
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 50,vertical: 5),
+                  child: FittedBox(
+                    child: CustomText(
+                      txt: 'Please, setup a new password for\n your account',
+                      color: ColorsManager.blackColor,
+                      fontfamily: FontManager.fontFamilyApp,
+                      fontWeight: FontWightManager.fontWeightLight,
+                      fontSize: FontSize.s19.sp,
+                      textAlign: TextAlign.center,
+                      height: 1.1.h,
+                    ),
+                  ),
                 ),
-              ),
-            ],
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 80,vertical: 25),
-              child: FittedBox(
-                child: CustomText(
-                  txt: 'Setup New Password',
-                  color: ColorsManager.blackColor,
-                  fontfamily: FontManager.fontFamilyApp,
-                  fontWeight: FontWightManager.fontWeightBold,
-                  fontSize: FontSize.s28.sp,
+                CustomTextFormField(
+                  controller: pass,
+                  hintTxt: 'New Password',
+                  hintStyle: TextStyle(
+                      color: ColorsManager.hintColor,
+                      fontSize: FontSize.s16.sp,
+                      fontFamily: FontManager.fontFamilyButton,
+                      fontWeight: FontWightManager.fontWeightLight,
+                  ),
+                  radius: FontSize.s10.r,
+                  colorBorder: ColorsManager.backGroundLogin,
+                  colorBorderEnable: ColorsManager.backGroundLogin,
                   textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 50,vertical: 10),
-              child: FittedBox(
-                child: CustomText(
-                  txt: 'Please, setup a new password for\n your account',
-                  color: ColorsManager.blackColor,
-                  fontfamily: FontManager.fontFamilyApp,
+                  fontSize: FontSize.s16.sp,
                   fontWeight: FontWightManager.fontWeightLight,
-                  fontSize: FontSize.s19.sp,
-                  textAlign: TextAlign.center,
-                  height: 1.1.h,
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Password required';
+                    }
+                  },
+                  onSubmitted: (value) {
+                    print(value);
+                  },
                 ),
-              ),
-            ),
-            Container(
-                margin:  EdgeInsetsDirectional.symmetric(horizontal: 25,vertical: 40),
-                child: Form(
-                  key: textGlobalKey,
-                  child: Column(
-                    children: [
-                      CustomTextFormField(
-                        controller: pass,
-                        backgroundColor: ColorsManager.backGroundLogin,
-                        hintTxt: 'New Password',
-                        hintStyle: TextStyle(
-                            color: ColorsManager.hintColor,
-                            fontSize: FontSize.s14.sp,
-                            fontFamily: FontManager.fontFamilyApp,
-                            fontWeight: FontWightManager.fontWeightMedium,
-                        ),
-                        radius: FontSize.s10.r,
-                        colorBorder: ColorsManager.backGroundLogin,
-                        colorBorderEnable: ColorsManager.backGroundLogin,
-                        textAlign: TextAlign.center,
-                        fontSize: FontSize.s8.sp,
-                        fontWeight: FontWightManager.fontWeightMedium,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Password required';
-                          }
-                        },
-                        onSubmitted: (value) {
-                          print(value);
-                        },
-                      ),
-                      SizedBox(height: 10.h,),
-                      CustomTextFormField(
-                        controller: passAuth,
-                        backgroundColor: ColorsManager.backGroundLogin,
-                        hintTxt: 'Repeat Password',
-                        hintStyle: TextStyle(
-                          color: ColorsManager.hintColor,
-                          fontSize: FontSize.s14.sp,
-                          fontFamily: FontManager.fontFamilyApp,
-                          fontWeight: FontWightManager.fontWeightMedium,
-                        ),
-                        radius: FontSize.s10.r,
-                        colorBorder: ColorsManager.backGroundLogin,
-                        colorBorderEnable: ColorsManager.backGroundLogin,
-                        textAlign: TextAlign.center,
-                        fontSize: FontSize.s8.sp,
-                        fontWeight: FontWightManager.fontWeightMedium,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Password required';
-                          } else if (value != pass.text) {
-                            return 'Password Not Match';
-                          }
-                        },
-                        onSubmitted: (value) {
-                          print(value);
-                        },
-                      ),
-                    ],
+                SizedBox(height: 10.h,),
+                CustomTextFormField(
+                  controller: passAuth,
+                  hintTxt: 'Repeat Password',
+                  hintStyle: TextStyle(
+                    color: ColorsManager.hintColor,
+                    fontSize: FontSize.s16.sp,
+                    fontFamily: FontManager.fontFamilyButton,
+                    fontWeight: FontWightManager.fontWeightLight,
                   ),
-                )),
-            Padding(
-              padding:
-              const EdgeInsetsDirectional.symmetric(horizontal: 25),
-              child: CustomButton(
-                width: 330.w,
-                txt: 'Save',
-                high: 50.h,
-                onPressed: () {
-                  if (textGlobalKey.currentState!.validate()) {
-                    toast(state: StatusCase.SUCCES, msg: 'Changing Success');
-                  }
-                  pass.clear();
-                  passAuth.clear();
-                //  NormalNav(ctx: context,screen: OtpView());
-                },
-                outLineBorder: false,
-                colorButton: ColorsManager.buttonColor,
-                colorTxt: ColorsManager.whiteColor,
-                fontWeight: FontWightManager.fontWeightMedium,
-                fontSize: FontSize.s18,
-              ),
+                  radius: FontSize.s10.r,
+                  colorBorder: ColorsManager.backGroundLogin,
+                  colorBorderEnable: ColorsManager.backGroundLogin,
+                  textAlign: TextAlign.center,
+                  fontSize: FontSize.s16.sp,
+                  fontWeight: FontWightManager.fontWeightLight,
+                  keyboardType: TextInputType.visiblePassword,
+                  suffexIcon: cubit.suffixIcon,
+                  suffexIconColor: cubit.suffixIconColor, // ToDo
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Password required';
+                    } else if (value != pass.text) {
+                      return 'Password Not Match';
+                    }
+                  },
+                  onChange: () {
+                    cubit.changeList();
+                  },
+                  onSubmitted: (value) {
+                    print(value);
+                  },
+                ),
+                SizedBox(height: 50.h,),
+                CustomButton(
+                  width: 330.w,
+                  txt: 'Save',
+                  high: 50.h,
+                  onPressed: () {
+                    if (textGlobalKey.currentState!.validate()) {
+                      toast(state: StatusCase.SUCCES, msg: 'Changing Success');
+                      cubit.changeList();
+                    }
+                    pass.clear();
+                    passAuth.clear();
+                  //  NormalNav(ctx: context,screen: OtpView());
+                  },
+                  outLineBorder: false,
+                  colorButton: ColorsManager.buttonColor,
+                  colorTxt: ColorsManager.whiteColor,
+                  fontWeight: FontWightManager.fontWeightMedium,
+                  fontSize: FontSize.s18,
+                ),
+                CustomTextClick(
+                  txt: 'Cancel',
+                  function: (){
+                    lastNav(ctx: context);
+                  },
+                  fontfamily: FontManager.fontFamilyButton,
+                  fontWeight: FontWightManager.fontWeightRegular, // Fixed typo here
+                  fontSize: FontSize.s15.sp,
+                  textAlign: TextAlign.center,
+                  color: ColorsManager.staticTextColor,
+                ),
+              ],
             ),
-            CustomTextClick(
-              txt: 'Cancel',
-              function: (){
-                lastNav(ctx: context);
-              },
-              fontfamily: FontManager.fontFamilyButton,
-              fontWeight: FontWightManager.fontWeightRegular, // Fixed typo here
-              fontSize: FontSize.s15.sp,
-              textAlign: TextAlign.center,
-              color: ColorsManager.staticTextColor,
-            ),
-          ],
+          ),
         ),
       ),
     );

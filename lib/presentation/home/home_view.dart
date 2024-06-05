@@ -14,6 +14,7 @@ import '../resources/constant/custom_button.dart';
 import '../resources/constant/custom_text.dart';
 import '../resources/constant/staticwidget.dart';
 import '../resources/font-manager.dart';
+import '../setting/setting_view.dart';
 import 'home_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -42,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       drawer: DrawerView(),
-      key: scaffoldKey,
+     // key: scaffoldKey,
       bottomNavigationBar: SnakeNavigationBar.color(
         height: 50.h,
         elevation: 5,
@@ -74,465 +75,389 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 230.h,
-              child: Stack(
-                children: [
-                  Positioned(
-                      top: -50,right: -50,
-                      child: Image.asset('assets/images/bubbleRegister.png')),
-                  Positioned(
-                      top: 0,right: -10,
-                      child: Image.asset('assets/images/bubbleRegist2.png')),
-                  Column(
-                    children: [
-                      SizedBox(height: 80.h,),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: (){
-                            scaffoldKey.currentState?.openDrawer();
-                          },
-                          child: Container(
-                            margin:const EdgeInsetsDirectional.symmetric(
-                              horizontal: 25,),
-                            height: 47.h,width: 47.w,
-                            decoration: BoxDecoration(
-                              color: ColorsManager.whiteColor,
-                              borderRadius: BorderRadius.circular(FontSize.s15.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Image.asset('assets/images/home.png'),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 40.h,),
-                      Padding(
-                        padding:const EdgeInsetsDirectional.symmetric(
-                          horizontal: 25,),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: FittedBox(
-                            child: CustomText(
-                              txt: 'Hi Ali, Which Service\nDo you Need ?',
-                              color: ColorsManager.blackColor,
-                              fontfamily: FontManager.fontFamilyApp,
-                              fontWeight: FontWightManager.fontWeightMedium,
-                              fontSize: FontSize.s20.sp,
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            CarouselSlider(
-                items:[1,2,3].map((e) {
-                  return Container(
-                  margin: EdgeInsetsDirectional.symmetric(horizontal: 15),
-                  width: 351.w,height: 195.h,
-                  decoration: BoxDecoration(
-                     // color: containerColors[index],
-                     color: ColorsManager.backGroundPhotoColor,
-                      borderRadius: BorderRadius.circular(FontSize.s14.r)
-                  ),
-                  child: Stack(
-                    children: [
-                      Center(child: Image.asset('assets/images/stack.png')),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FittedBox(
-                              child: CustomText(
-                                txt: 'Get 30% Off',
-                                color: ColorsManager.blackColor,
-                                fontfamily: FontManager.fontFamilyApp,
-                                fontWeight: FontWightManager.fontWeightBold,
-                                fontSize: FontSize.s24.sp,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(height: 5.h,),
-                            FittedBox(
-                              child: CustomText(
-                                txt: 'Get discount for every \norder  only valid for today',
-                                color: ColorsManager.blackColor,
-                                fontfamily: FontManager.fontFamilyApp,
-                                fontWeight: FontWightManager.fontWeightBold,
-                                fontSize: FontSize.s13.sp,
-                                textAlign: TextAlign.center,
-                                height: 1.1.h,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-                },).toList(),
-                options: CarouselOptions(
-                  aspectRatio: 16/9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _currentIndex = index ;
-                    });
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 30.h,),
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: (){
+                    NormalNav(ctx: context , screen: SettingView());
+                    //   scaffoldKey.currentState?.openDrawer();
                   },
-                )
-            ),
-            CircleIndicator(_currentIndex,[0,1,2]),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FittedBox(
-                    child: CustomText(
-                      txt: 'Categories',
-                      color: ColorsManager.blackColor,
-                      fontfamily: FontManager.fontFamilyButton,
-                      fontWeight: FontWightManager.fontWeightMedium,
-                      fontSize: FontSize.s18.sp,
-                      textAlign: TextAlign.start,
+                  child: Container(
+                    margin:const EdgeInsetsDirectional.symmetric(
+                      horizontal: 25,),
+                    height: 47.h,width: 47.w,
+                    decoration: BoxDecoration(
+                      color: ColorsManager.backGroundContColor,
+                      shape: BoxShape.circle,
+                     // borderRadius: BorderRadius.circular(FontSize.s15.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
+                    child: Icon(Icons.person , color: ColorsManager.iconBackColor,),
                   ),
-                 GestureDetector(
-                   onTap: (){
-                     NormalNav(ctx: context,screen: CategoriesView());
-                   },
-                   child: Row(
-                     children: [
-                       FittedBox(
-                         child: CustomText(
-                           txt: 'See all',
-                           color: ColorsManager.blackColor,
-                           fontfamily: FontManager.fontFamilyButton,
-                           fontWeight: FontWightManager.fontWeightLight,
-                           fontSize: FontSize.s12.sp,
-                           textAlign: TextAlign.start,
-                         ),
-                       ),
-                       Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
-                     ],
-                   ),
-                 )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,),
-              child: GridView.builder(
-                itemCount: homeModel.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.7,
                 ),
-                  itemBuilder:  (context, index) {
-                    return buildContainer(index);
-                  },
               ),
-            ),
-            Container(
-              height: 450.h,
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      Positioned(
-                        left:-120,
-                          child: Image.asset('assets/images/homme.png')),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            FittedBox(
-                              child: CustomText(
-                                txt: 'Popular House Maid',
-                                color: ColorsManager.blackColor,
-                                fontfamily: FontManager.fontFamilyButton,
-                                fontWeight: FontWightManager.fontWeightMedium,
-                                fontSize: FontSize.s18.sp,
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                FittedBox(
-                                  child: CustomText(
-                                    txt: 'See all',
-                                    color: ColorsManager.blackColor,
-                                    fontfamily: FontManager.fontFamilyButton,
-                                    fontWeight: FontWightManager.fontWeightLight,
-                                    fontSize: FontSize.s12.sp,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                                Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
-                              ],
-                            )
-                          ],
-                        ),
+              CarouselSlider(
+                  items:[1,2,3].map((e) {
+                    return Image.asset('assets/images/stack.png');
+                  },).toList(),
+                  options: CarouselOptions(
+                    aspectRatio: 16/9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentIndex = index ;
+                      });
+                    },
+                  )
+              ),
+              CircleIndicator(_currentIndex,[0,1,2]),
+              SizedBox(height: 20.h,),
+              Align(
+                alignment: Alignment.topLeft,
+                child: FittedBox(
+                  child: CustomText(
+                    txt: 'Hi Ali, Which Service\nDo you Need ?',
+                    color: ColorsManager.blackColor,
+                    fontfamily: FontManager.fontFamilyButton,
+                    fontWeight: FontWightManager.fontWeightMedium,
+                    fontSize: FontSize.s20.sp,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ),
+              CarouselSlider(
+                items: homeModel.map((e) {
+                  return GridView.builder(
+                      itemCount: homeModel.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        childAspectRatio: 1.5,
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.symmetric(vertical: 60),
-                        child: Column(
-                          children: [
-                            CarouselSlider(
-                                items:[1,2,3,4,5].map((e) {
-                                  return Container(
-                                      margin: EdgeInsetsDirectional.symmetric(horizontal: 15),
-                                      width: 330.w,height: 112.h,
-                                      decoration: BoxDecoration(
-                                        color: ColorsManager.whiteColor,
-                                        borderRadius: BorderRadius.circular(FontSize.s18.r),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.1),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0, 3), // changes position of shadow
-                                          ),],
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset('assets/images/list2.png'),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  FittedBox(
-                                                    child: CustomText(
-                                                      txt: 'Shruti Kedia',
-                                                      color: ColorsManager.blackColor,
-                                                      fontfamily: FontManager.fontFamilyButton,
-                                                      fontWeight: FontWightManager.fontWeightMedium,
-                                                      fontSize: FontSize.s16.sp,
-                                                      textAlign: TextAlign.start,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 10.h,),
-                                                  FittedBox(
-                                                    child: CustomText(
-                                                        txt: 'Hi my name is Kedia and \nI m House maid',
-                                                        color: ColorsManager.blackColor,
-                                                        fontfamily: FontManager.fontFamilyButton,
-                                                        fontWeight: FontWightManager.fontWeightLight,
-                                                        fontSize: FontSize.s12.sp,
-                                                        textAlign: TextAlign.start,
-                                                        height: 0.9.h
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(width: 20.w,),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  IconButton(onPressed: (){}, icon: Icon(Icons.favorite) , color: ColorsManager.redColor,),
-
-                                                ],
-                                              ),
-
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 20),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [
-                                                Icon(Icons.star_rate , color: ColorsManager.starColor,),
-                                                Icon(Icons.star_rate , color: ColorsManager.starColor,),
-                                                Icon(Icons.star_rate , color: ColorsManager.starColor,),
-                                                Icon(Icons.star_rate , color: ColorsManager.starColor,),
-
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                  );
-                                },).toList(),
-                                options: CarouselOptions(
-                                  aspectRatio: 25/9,
-                                  viewportFraction: 1.2,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: true,
-                                  reverse: false,
-                                  autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
-                                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  enlargeCenterPage: true,
-                                  enlargeFactor: 0.3,
-                                  scrollDirection: Axis.horizontal,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _currentIndex2 = index ;
-                                    });
-                                  },
-                                )
-                            ),
-                            CircleIndicator(_currentIndex2,[0,1,2,3,4]),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      itemBuilder:  (context, index) {
+                        return buildContainer(index);
+                      }
+                  );
+                }).toList(),
+                  options: CarouselOptions(
+                    aspectRatio: 16/9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentIndex = index ;
+                      });
+                    },
+                  )
+              ),
+              Container(
+                height: 450.h,
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Positioned(
+                          left:-120,
+                            child: Image.asset('assets/images/homme.png')),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              FittedBox(
+                                child: CustomText(
+                                  txt: 'Popular House Maid',
+                                  color: ColorsManager.blackColor,
+                                  fontfamily: FontManager.fontFamilyButton,
+                                  fontWeight: FontWightManager.fontWeightMedium,
+                                  fontSize: FontSize.s18.sp,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              Row(
                                 children: [
                                   FittedBox(
                                     child: CustomText(
-                                      txt: 'Feature Nurses ',
+                                      txt: 'See all',
                                       color: ColorsManager.blackColor,
                                       fontfamily: FontManager.fontFamilyButton,
-                                      fontWeight: FontWightManager.fontWeightMedium,
-                                      fontSize: FontSize.s18.sp,
+                                      fontWeight: FontWightManager.fontWeightLight,
+                                      fontSize: FontSize.s12.sp,
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      FittedBox(
-                                        child: CustomText(
-                                          txt: 'See all',
-                                          color: ColorsManager.blackColor,
-                                          fontfamily: FontManager.fontFamilyButton,
-                                          fontWeight: FontWightManager.fontWeightLight,
-                                          fontSize: FontSize.s12.sp,
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                      Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
-                                    ],
-                                  )
+                                  Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
                                 ],
-                              ),
-                            ),
-                            Container(
-                              height: 150.h,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: nurseModel.length,
-                                scrollDirection:Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return buildContainerList(index);
-                                },
-                              ),
-                            ),
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.symmetric(vertical: 60),
+                          child: Column(
+                            children: [
+                              CarouselSlider(
+                                  items:[1,2,3,4,5].map((e) {
+                                    return Container(
+                                        margin: EdgeInsetsDirectional.symmetric(horizontal: 15),
+                                        width: 330.w,height: 112.h,
+                                        decoration: BoxDecoration(
+                                          color: ColorsManager.whiteColor,
+                                          borderRadius: BorderRadius.circular(FontSize.s18.r),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.1),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0, 3), // changes position of shadow
+                                            ),],
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Image.asset('assets/images/list2.png'),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    FittedBox(
+                                                      child: CustomText(
+                                                        txt: 'Shruti Kedia',
+                                                        color: ColorsManager.blackColor,
+                                                        fontfamily: FontManager.fontFamilyButton,
+                                                        fontWeight: FontWightManager.fontWeightMedium,
+                                                        fontSize: FontSize.s16.sp,
+                                                        textAlign: TextAlign.start,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 10.h,),
+                                                    FittedBox(
+                                                      child: CustomText(
+                                                          txt: 'Hi my name is Kedia and \nI m House maid',
+                                                          color: ColorsManager.blackColor,
+                                                          fontfamily: FontManager.fontFamilyButton,
+                                                          fontWeight: FontWightManager.fontWeightLight,
+                                                          fontSize: FontSize.s12.sp,
+                                                          textAlign: TextAlign.start,
+                                                          height: 0.9.h
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(width: 20.w,),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    IconButton(onPressed: (){}, icon: Icon(Icons.favorite) , color: ColorsManager.redColor,),
 
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FittedBox(
-                    child: CustomText(
-                      txt: 'Top 4 Laundry in Al Khor',
-                      color: ColorsManager.blackColor,
-                      fontfamily: FontManager.fontFamilyButton,
-                      fontWeight: FontWightManager.fontWeightMedium,
-                      fontSize: FontSize.s18.sp,
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      FittedBox(
-                        child: CustomText(
-                          txt: 'See all',
-                          color: ColorsManager.blackColor,
-                          fontfamily: FontManager.fontFamilyButton,
-                          fontWeight: FontWightManager.fontWeightLight,
-                          fontSize: FontSize.s12.sp,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 140.h,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 5,
-                scrollDirection:Axis.horizontal,
-                padding: EdgeInsetsDirectional.symmetric(vertical: 10,),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
-                    child: Stack(
-                      children: [
-                        Image.asset('assets/images/listView.png'),
-                        Positioned(
-                          bottom:15,left:25,
-                          child: CustomButton(
-                            outLineBorder: false,
-                            width: 91.w,high: 35.h,
-                            onPressed: (){},
-                            borderRadius: FontSize.s10.r,
-                            colorButton: ColorsManager.buttonCategoryColor,
-                            txt: 'Book',
-                            colorTxt: ColorsManager.whiteColor,
-                            fontFamily:FontManager.fontFamilyButton,
-                            alignment: Alignment.center,
-                            fontWeight: FontWightManager.fontWeightSemiBold,
-                            fontSize: FontSize.s16.sp,
+                                                  ],
+                                                ),
 
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 20),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Icon(Icons.star_rate , color: ColorsManager.starColor,),
+                                                  Icon(Icons.star_rate , color: ColorsManager.starColor,),
+                                                  Icon(Icons.star_rate , color: ColorsManager.starColor,),
+                                                  Icon(Icons.star_rate , color: ColorsManager.starColor,),
+
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                    );
+                                  },).toList(),
+                                  options: CarouselOptions(
+                                    aspectRatio: 25/9,
+                                    viewportFraction: 1.2,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: true,
+                                    reverse: false,
+                                    autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 3),
+                                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.3,
+                                    scrollDirection: Axis.horizontal,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _currentIndex2 = index ;
+                                      });
+                                    },
+                                  )
+                              ),
+                              CircleIndicator(_currentIndex2,[0,1,2,3,4]),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    FittedBox(
+                                      child: CustomText(
+                                        txt: 'Feature Nurses ',
+                                        color: ColorsManager.blackColor,
+                                        fontfamily: FontManager.fontFamilyButton,
+                                        fontWeight: FontWightManager.fontWeightMedium,
+                                        fontSize: FontSize.s18.sp,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        FittedBox(
+                                          child: CustomText(
+                                            txt: 'See all',
+                                            color: ColorsManager.blackColor,
+                                            fontfamily: FontManager.fontFamilyButton,
+                                            fontWeight: FontWightManager.fontWeightLight,
+                                            fontSize: FontSize.s12.sp,
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                        Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 150.h,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: nurseModel.length,
+                                  scrollDirection:Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildContainerList(index);
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  );
-                },
+
+                  ],
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                      child: CustomText(
+                        txt: 'Top 4 Laundry in Al Khor',
+                        color: ColorsManager.blackColor,
+                        fontfamily: FontManager.fontFamilyButton,
+                        fontWeight: FontWightManager.fontWeightMedium,
+                        fontSize: FontSize.s18.sp,
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        FittedBox(
+                          child: CustomText(
+                            txt: 'See all',
+                            color: ColorsManager.blackColor,
+                            fontfamily: FontManager.fontFamilyButton,
+                            fontWeight: FontWightManager.fontWeightLight,
+                            fontSize: FontSize.s12.sp,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Icon(Icons.arrow_forward_ios, color: ColorsManager.blackColor,size: FontSize.s14.sp,),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 140.h,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  scrollDirection:Axis.horizontal,
+                  padding: EdgeInsetsDirectional.symmetric(vertical: 10,),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+                      child: Stack(
+                        children: [
+                          Image.asset('assets/images/listView.png'),
+                          Positioned(
+                            bottom:15,left:25,
+                            child: CustomButton(
+                              outLineBorder: false,
+                              width: 91.w,high: 35.h,
+                              onPressed: (){},
+                              borderRadius: FontSize.s10.r,
+                              colorButton: ColorsManager.buttonCategoryColor,
+                              txt: 'Book',
+                              colorTxt: ColorsManager.whiteColor,
+                              fontFamily:FontManager.fontFamilyButton,
+                              alignment: Alignment.center,
+                              fontWeight: FontWightManager.fontWeightSemiBold,
+                              fontSize: FontSize.s16.sp,
+
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
 
 
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -625,35 +550,8 @@ class _HomeViewState extends State<HomeView> {
                                 );
   }
 
-  Column buildContainer(int index) {
-    return Column(
-      children: [
-        Container(
-                      width: 100.w, height: 90.h,
-                      decoration: BoxDecoration(
-                        color: ColorsManager.backGroundPhotoColor,
-                        borderRadius: BorderRadius.circular(FontSize.s14.r),
-                        image: DecorationImage(
-                          image: AssetImage(homeModel[index].image as String),
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                        ),
-                      ),
-                      //  child: Image.asset('assets/images/list1.png'),
-                    ),
-        SizedBox(height: 10.h,),
-        FittedBox(
-          child: CustomText(
-            txt: homeModel[index].text,
-            color: ColorsManager.blackColor,
-            fontfamily: FontManager.fontFamilyText,
-            fontWeight: FontWightManager.fontWeightMedium,
-            fontSize: FontSize.s15.sp,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
+  Widget buildContainer(int index) {
+    return Image.asset('assets/images/test.png');
   }
 
 
@@ -673,7 +571,7 @@ class CircleIndicator extends StatelessWidget {
           height: 6.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: currentIndex == i ? Colors.blue : Colors.grey,
+            color: currentIndex == i ? ColorsManager.circleHomeColor: ColorsManager.greyColor,
           ),
         );
       }).toList(),

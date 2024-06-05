@@ -11,5 +11,7 @@ class GetDataError extends LoginStates {
 
 }
 
+class ChangeListState extends LoginStates {}
+
 
 

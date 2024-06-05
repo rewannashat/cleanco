@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:phone_text_field/phone_text_field.dart';
 
 import '../home/home_view.dart';
 import '../passwordrecovery/passwordMobile_view.dart';
@@ -17,14 +18,10 @@ import '../resources/font-manager.dart';
 import 'login-viewmodel/logCubit.dart';
 import 'login-viewmodel/logState.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   const LoginView({super.key});
+  static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
-  @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,42 +32,23 @@ class _LoginViewState extends State<LoginView> {
 
     LoginCubit cubit = LoginCubit.get(context);
 
-    final textGlobalKey = GlobalKey<FormState>();
+    final textScaffoldKey = GlobalKey<ScaffoldState>();
 
 
-    return GestureDetector(
-      onTap: (){
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        // resizeToAvoidBottomInset: true,
-        body: BlocConsumer<LoginCubit, LoginStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return SingleChildScrollView(
-              //   reverse: true,
-              child: Column(
-                children: [
-                  Container(
-                    height: 230.h,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                            top: -150,
-                            left: -140,
-                            child: Image.asset('assets/images/leftbubble.png')),
-                        Positioned(
-                            top: -20,
-                            right: -130,
-                            child: Image.asset('assets/images/rightbubble.png')),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25),
-                    child: Align(
-                      alignment: Alignment.topLeft,
+    return Scaffold(
+      body: BlocConsumer<LoginCubit, LoginStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Form(
+              key:_formKey,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    SizedBox(height: 80.h,),
+                    Align(
+                      alignment: Alignment.center,
                       child: FittedBox(
                         child: CustomText(
                           txt: 'Log In',
@@ -82,131 +60,93 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                        horizontal: 25, vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    SizedBox(height: 30.h,),
+                    Row(
                       children: [
-                        buildCustomButton(txt: 'GOOGLE', press: () {}),
-                        buildCustomButton(txt: 'APPLED', press: () {}),
+                        buildCustomButton(txt: 'Google',image: 'assets/images/gmail.png' ,press: () {}),
+                        SizedBox(width: 5.w,),
+                        buildCustomButton(txt: 'Appled',image: 'assets/images/apple.png', press: () {}),
                       ],
                     ),
-                  ),
-                  rowDiv(61.8.w),
-                  SizedBox(
-                    height: 21.h,
-                  ),
-                  Container(
-                      padding:  EdgeInsetsDirectional.symmetric(horizontal: 25),
-                      child: Form(
-                        key: textGlobalKey,
-                        child: Column(
-                          children: [
-                            IntlPhoneField(
-                            //  autofocus: true,
-                              controller: phone,
-                              keyboardType: TextInputType.phone,
-                              decoration: InputDecoration(
-                                hintText: 'Enter Your Phone Number',
-                                filled: true,
-                                border: InputBorder.none,
-                                fillColor: ColorsManager.backGroundLogin,
-                                hintStyle: TextStyle(
-                                    color: ColorsManager.hintColor,
-                                    fontSize: FontSize.s14.sp,
-                                    fontFamily: FontManager.fontFamilyApp,
-                                    fontWeight: FontWightManager.fontWeightMedium,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(FontSize.s12.r),
-                                  borderSide:  BorderSide(color:ColorsManager.backGroundLogin),//out color
-                                ),
-                              ),
-                              initialCountryCode: 'IN',
-
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Phone Number is required';
-                                }
-                                return null;
-                              },
-                            ),
-                            CustomTextFormField(
-                              autofocus: true,
-                              controller: pass,
-                              backgroundColor: ColorsManager.backGroundLogin,
-                              hintTxt: 'Password',
-                              hintStyle: TextStyle(
-                                  color: ColorsManager.hintColor,
-                                  fontSize: FontSize.s14.sp,
-                                  fontFamily: FontManager.fontFamilyApp,
-                                  fontWeight: FontWightManager.fontWeightMedium),
-                              radius: FontSize.s10.r,
-                              colorBorder: ColorsManager.backGroundLogin,
-                              colorBorderEnable: ColorsManager.backGroundLogin,
-                              textAlign: TextAlign.start,
-                              fontSize: FontSize.s8.sp,
-                              fontWeight: FontWightManager.fontWeightMedium,
-                              keyboardType: TextInputType.visiblePassword,
-                              suffexIcon: cubit.isIconClicked
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              onPressedSuffexIcon: () {
-                                cubit.changeIcon();
-                              },
-                              obscureText: cubit.isIconClicked ? false : true,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Password required';
-                                }
-                              },
-                              onSubmitted: (value) {
-                                print(value);
-                              },
-                            ),
-                          ],
-                        ),
-                      )),
-                  Padding(
-                    padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 20),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: TextButton(
-                        onPressed: () {
-                          NormalNav(ctx: context , screen: PasswordMobileView());
-                        },
-                        child: FittedBox(
-                          child: CustomText(
-                            txt: 'Forgot Password?',
-                            color: ColorsManager.messageTextColor,
-                            fontfamily: FontManager.fontFamilyApp,
-                            fontWeight: FontWightManager.fontWeightRegular,
-                            // Fixed typo here
-                            fontSize: FontSize.s12.sp,
-                            decoration: TextDecoration.underline,
-                            decorationColor: ColorsManager.messageTextColor,
-                          ),
-                        ),
-                      ),
+                    SizedBox(height: 10.h,),
+                    rowDiv(61.8.w),
+                    SizedBox(
+                      height: 21.h,
                     ),
-                  ),
-                  Padding(
-                    padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25),
-                    child: CustomButton(
+                    CustomTextFormField(
+                      controller: phone,
+                      hintTxt: 'Phone Number',
+                      hintStyle: TextStyle(
+                          color: ColorsManager.hintColor,
+                          fontSize: FontSize.s16.sp,
+                          fontFamily: FontManager.fontFamilyButton,
+                          fontWeight: FontWightManager.fontWeightLight),
+                      radius: FontSize.s10.r,
+                      colorBorder: ColorsManager.backGroundLogin,
+                      colorBorderEnable: ColorsManager.backGroundLogin,
+                      textAlign: TextAlign.start,
+                      fontSize: FontSize.s16.sp,
+                      fontWeight: FontWightManager.fontWeightLight,
+                      keyboardType: TextInputType.phone,
+
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Phone Num required';
+                        }
+                      },
+                      onSubmitted: (value) {
+                        print(value);
+                      },
+                    ),
+                    SizedBox(
+                      height: 21.h,
+                    ),
+                    CustomTextFormField(
+                      controller: pass,
+                      hintTxt: 'Password',
+                      hintStyle: TextStyle(
+                          color: ColorsManager.hintColor,
+                          fontSize: FontSize.s16.sp,
+                          fontFamily: FontManager.fontFamilyButton,
+                          fontWeight: FontWightManager.fontWeightLight),
+                      radius: FontSize.s10.r,
+                      colorBorder: ColorsManager.backGroundLogin,
+                      colorBorderEnable: ColorsManager.backGroundLogin,
+                      textAlign: TextAlign.start,
+                      fontSize: FontSize.s16.sp,
+                      fontWeight: FontWightManager.fontWeightLight,
+                      keyboardType: TextInputType.visiblePassword,
+                      suffexIcon: cubit.isIconClicked
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      onPressedSuffexIcon: () {
+                        cubit.changeIcon();
+                      },
+                      obscureText: cubit.isIconClicked ? false : true,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Password required';
+                        }
+                      },
+                      onSubmitted: (value) {
+                        print(value);
+                      },
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    CustomButton(
                       width: 330.w,
                       txt: 'Login',
                       high: 50.h,
                       onPressed: () {
-                        if (textGlobalKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate()) {
                           toast(state: StatusCase.SUCCES, msg: 'Login Success');
+                          NavAndRemove(ctx: context,screen: HomeView());
+                          phone.clear();
+                          pass.clear();
                         }
-                        phone.clear();
-                        pass.clear();
-                        NavAndRemove(ctx: context,screen: HomeView());
+
                       },
                       outLineBorder: false,
                       colorButton: ColorsManager.buttonColor,
@@ -214,11 +154,7 @@ class _LoginViewState extends State<LoginView> {
                       fontWeight: FontWightManager.fontWeightMedium,
                       fontSize: FontSize.s18,
                     ),
-                  ),
-                  Padding(
-                    padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 15),
-                    child: Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: TextButton(
                         onPressed: () {
@@ -230,69 +166,88 @@ class _LoginViewState extends State<LoginView> {
                             color: ColorsManager.blackColor,
                             fontfamily: FontManager.fontFamilyApp,
                             fontWeight: FontWightManager.fontWeightMedium,
-                            // Fixed typo here
                             fontSize: FontSize.s14.sp,
+                            textAlign: TextAlign.start,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 28),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          child: FittedBox(
-                            child: CustomText(
-                              txt: 'REGISTER',
-                              color: ColorsManager.buttonColor,
-                              fontfamily: FontManager.fontFamilyApp,
-                              fontWeight: FontWightManager.fontWeightBold,
-                              // Fixed typo here
-                              fontSize: FontSize.s16.sp,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              child: FittedBox(
+                                child: CustomText(
+                                  txt: 'REGISTER',
+                                  color: ColorsManager.buttonColor,
+                                  fontfamily: FontManager.fontFamilyApp,
+                                  fontWeight: FontWightManager.fontWeightBold,
+                                  // Fixed typo here
+                                  fontSize: FontSize.s16.sp,
+                                ),
+                              ),
+                              onTap: () {
+                                NormalNav(ctx: context,screen: RegisterView());
+                              },
                             ),
-                          ),
-                          onTap: () {
-                            NormalNav(ctx: context,screen: RegisterView());
-                          },
+                            IconButton(
+                              onPressed: () => {
+                                NormalNav(ctx: context,screen: RegisterView())
+                              },
+                              icon: const Icon(Icons.arrow_forward),
+                              color: ColorsManager.buttonColor,
+                              alignment: Alignment.centerRight,
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          onPressed: () => {
-                            NormalNav(ctx: context,screen: RegisterView())
-                          },
-                          icon: const Icon(Icons.arrow_forward),
-                          color: ColorsManager.buttonColor,
-                          alignment: Alignment.centerRight,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom)),
-                ],
+
+                  ],
+                ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  CustomButton buildCustomButton({String? txt, Function? press}) {
-    return CustomButton(
-      txt: txt,
-      outLineBorder: false,
-      onPressed: press,
-      high: 53.h,
-      width: 150.w,
-      colorButton: ColorsManager.backGroundLogin,
-      colorTxt: ColorsManager.blackColor,
-      fontFamily: FontManager.fontFamilyApp,
-      fontWeight: FontWightManager.fontWeightMedium,
-      fontSize: FontSize.s18.sp,
+  Container buildCustomButton({String? txt, String? image , Function? press}) {
+    return Container(
+      margin: EdgeInsetsDirectional.symmetric(vertical: 10,),
+      height: 54.h, width: 160.w,
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        color: ColorsManager.whiteColor,
+        borderRadius: BorderRadius.circular(FontSize.s12.r)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset(image!),
+          FittedBox(
+            child: CustomText(
+              txt: txt,
+              color:ColorsManager.blackColor,
+              fontfamily: FontManager.fontFamilyApp,
+              fontWeight: FontWightManager.fontWeightMedium,
+              fontSize:FontSize.s15.sp,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

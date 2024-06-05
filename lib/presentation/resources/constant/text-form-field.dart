@@ -30,9 +30,9 @@ class CustomTextFormField extends StatelessWidget {
   final TextStyle? labelStyle;
   final double? radius ;
   final OutlineInputBorder? out ;
-  final Color? backgroundColor;
-  final bool autofocus;
-  final FocusNode? focusNode;
+  final String? prefexTxt;
+  final double? elevation;
+  final Color? fillColor;
 
 
 
@@ -66,9 +66,9 @@ class CustomTextFormField extends StatelessWidget {
     this.contentPadding = 12,
     this.textAlign = TextAlign.right,
     this.textDirection = TextDirection.rtl,
-    this.backgroundColor,
-    this.autofocus = false ,
-    this.focusNode,
+    this.prefexTxt,
+    this.elevation,
+    this.fillColor,
   });
 
   @override
@@ -79,17 +79,18 @@ class CustomTextFormField extends StatelessWidget {
       onSaved: (val) => onSaved!(val),
       validator: (val) => validator!(val),
       onFieldSubmitted :(val) => onSubmitted!(val),
-     // onChanged: (val) => onChange!(),
+      onChanged:(val) => onChange!(),
       controller: controller,
       minLines: minLines,
       maxLines: maxLines,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: backgroundColor,
+        prefixText: prefexTxt,
         hintText: hintTxt ,
         hintStyle: hintStyle,
         labelText: label,
         labelStyle: labelStyle,
+        filled: fillColor != null,
+        fillColor: fillColor,
         suffixIcon:  IconButton(
           onPressed: () => onPressedSuffexIcon!(),
           icon: Icon(suffexIcon),
@@ -113,8 +114,6 @@ class CustomTextFormField extends StatelessWidget {
       mouseCursor: MouseCursor.defer,
       keyboardType: keyboardType,
       obscureText: obscureText!,
-      autofocus: autofocus,
-      focusNode: focusNode,
     );
   }
 }

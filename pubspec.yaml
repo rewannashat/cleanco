@@ -53,6 +53,7 @@ dependencies:
   carousel_slider: ^4.2.1
   salomon_bottom_bar: ^3.3.2
   flutter_snake_navigationbar: ^0.6.1
+  phone_text_field: any
 
 dev_dependencies:
   flutter_test:

@@ -57,7 +57,7 @@ class CategoriesView extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 200.h,
+              height: 220.h,
               child: Stack(
                 children: [
                   Positioned(
@@ -150,7 +150,7 @@ Column buildContainer(int index) {
       SizedBox(height: 10.h,),
       FittedBox(
         child: CustomText(
-          txt: homeModel[index].text,
+          txt: homeModel[index].imageBack,
           color: ColorsManager.blackColor,
           fontfamily: FontManager.fontFamilyText,
           fontWeight: FontWightManager.fontWeightMedium,

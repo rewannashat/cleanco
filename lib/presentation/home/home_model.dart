@@ -1,17 +1,17 @@
 class HomeModel {
-  String? text ;
+  String? imageBack ;
   String? image;
 
-  HomeModel(this.text, this.image);
+  HomeModel(this.imageBack, this.image);
 }
 
 List <HomeModel> homeModel = [
-  HomeModel('Cleaning', 'assets/images/list1.png'),
-  HomeModel('Maid', 'assets/images/list2.png'),
-  HomeModel('Nurse', 'assets/images/list3.png'),
-  HomeModel('Laundry', 'assets/images/list4.png'),
-  HomeModel('Man Salon', 'assets/images/list5.png'),
-  HomeModel('Car Wash', 'assets/images/list6.png'),
+  HomeModel('assets/images/imageBack1.png', 'assets/images/list1.png'),
+  HomeModel('assets/images/imageBack2.png', 'assets/images/list2.png'),
+  HomeModel('assets/images/imageBack3.png', 'assets/images/list3.png'),
+  HomeModel('assets/images/imageBack4.png', 'assets/images/list4.png'),
+  HomeModel('assets/images/imageBack1.png', 'assets/images/list1.png'),
+  HomeModel('assets/images/imageBack1.png', 'assets/images/list2.png'),
 ];
 
 class NurseModel {

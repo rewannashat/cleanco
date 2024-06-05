@@ -15,7 +15,7 @@ import '../resources/font-manager.dart';
 
 class PasswordMobileView extends StatelessWidget {
   const PasswordMobileView({super.key});
-
+  static GlobalKey<FormState> textGlobalKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,147 +25,123 @@ class PasswordMobileView extends StatelessWidget {
 
     LoginCubit cubit = LoginCubit.get(context);
 
-    final textGlobalKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 150.h,
-              child: Stack(
-                children: [
-                  Positioned(
-                      top: -100,right: -50,
-                      child: Image.asset('assets/images/bubbleRegister.png')),
-                  Positioned(
-                      top: 0,right: -10,
-                      child: Image.asset('assets/images/bubbleRegist2.png')),
-                ],
-              ),
-            ),
-            Stack(children:[
-              Center(
-                child: Material(
-                  elevation: 5, // Adjust elevation as needed
-                  shape: CircleBorder(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorsManager.whiteColor, // White background color
-                      shape: BoxShape.circle,
-                    ),
-                    width: 125.w, // Adjust size as needed
-                    height: 85.h,
-                  ),
-                ),
-              ),
-              Center(
-                child: Image.asset(
-                  'assets/images/registPerson.png', // Replace with your image path
-                  width: 90.w, // Adjust image size as needed
-                  height:85.h,
-                ),
-              ),
-            ],
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 80,vertical: 25),
-              child: FittedBox(
-                child: CustomText(
-                  txt: 'Password Recovery',
-                  color: ColorsManager.blackColor,
-                  fontfamily: FontManager.fontFamilyApp,
-                  fontWeight: FontWightManager.fontWeightBold,
-                  fontSize: FontSize.s28.sp,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 50,vertical: 10),
-              child: FittedBox(
-                child: CustomText(
-                  txt: 'How you would like to restore\n your password?',
-                  color: ColorsManager.blackColor,
-                  fontfamily: FontManager.fontFamilyApp,
-                  fontWeight: FontWightManager.fontWeightLight,
-                  fontSize: FontSize.s19.sp,
-                  textAlign: TextAlign.center,
-                  height: 1.1.h,
-                ),
-              ),
-            ),
-            Container(
-                margin:  EdgeInsetsDirectional.symmetric(horizontal: 25,vertical: 40),
-                child: Form(
-                  key: textGlobalKey,
-                  child: Column(
-                    children: [
-                      IntlPhoneField(
-                        // autofocus: true,
-                        controller: phoneNum,
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          hintText: 'Enter Your Phone Number',
-                          filled: true,
-                          border: InputBorder.none,
-                          fillColor: ColorsManager.backGroundLogin,
-                          hintStyle: TextStyle(
-                            color: ColorsManager.hintColor,
-                            fontSize: FontSize.s14.sp,
-                            fontFamily: FontManager.fontFamilyApp,
-                            fontWeight: FontWightManager.fontWeightMedium,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(FontSize.s12.r),
-                            borderSide:  BorderSide(color:ColorsManager.backGroundLogin),//out color
-                          ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+          child: Form(
+            key: textGlobalKey,
+            child: Column(
+              children: [
+                Stack(children:[
+                  Center(
+                    child: Material(
+                      elevation: 5, // Adjust elevation as needed
+                      shape: CircleBorder(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorsManager.whiteColor, // White background color
+                          shape: BoxShape.circle,
                         ),
-                        initialCountryCode: 'IN',
-
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Phone Number is required';
-                          }
-                          return null;
-                        },
+                        width: 125.w, // Adjust size as needed
+                        height: 85.h,
                       ),
-                    ],
+                    ),
                   ),
-                )),
-            Padding(
-              padding:
-              const EdgeInsetsDirectional.symmetric(horizontal: 25),
-              child: CustomButton(
-                width: 330.w,
-                txt: 'Next',
-                high: 50.h,
-                onPressed: () {
-                  if (textGlobalKey.currentState!.validate()) {
-                    toast(state: StatusCase.SUCCES, msg: 'Send Otp Success');
-                  }
-                  phoneNum.clear();
-                   NormalNav(ctx: context,screen: OtpView());
-                },
-                outLineBorder: false,
-                colorButton: ColorsManager.buttonColor,
-                colorTxt: ColorsManager.whiteColor,
-                fontWeight: FontWightManager.fontWeightMedium,
-                fontSize: FontSize.s18,
-              ),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/registPerson.png', // Replace with your image path
+                      width: 90.w, // Adjust image size as needed
+                      height:85.h,
+                    ),
+                  ),
+                ],
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 80,vertical: 25),
+                  child: FittedBox(
+                    child: CustomText(
+                      txt: 'Password Recovery',
+                      color: ColorsManager.blackColor,
+                      fontfamily: FontManager.fontFamilyApp,
+                      fontWeight: FontWightManager.fontWeightBold,
+                      fontSize: FontSize.s28.sp,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 50,vertical: 10),
+                  child: FittedBox(
+                    child: CustomText(
+                      txt: 'How you would like to restore\n your password?',
+                      color: ColorsManager.blackColor,
+                      fontfamily: FontManager.fontFamilyApp,
+                      fontWeight: FontWightManager.fontWeightLight,
+                      fontSize: FontSize.s19.sp,
+                      textAlign: TextAlign.center,
+                      height: 1.1.h,
+                    ),
+                  ),
+                ),
+                CustomTextFormField(
+                  controller: phoneNum,
+                  hintTxt: 'Phone Number',
+                  hintStyle: TextStyle(
+                    color: ColorsManager.hintColor,
+                    fontSize: FontSize.s16.sp,
+                    fontFamily: FontManager.fontFamilyButton,
+                    fontWeight: FontWightManager.fontWeightLight,
+                  ),
+                  radius: FontSize.s10.r,
+                  colorBorder: ColorsManager.backGroundLogin,
+                  colorBorderEnable: ColorsManager.backGroundLogin,
+                  textAlign: TextAlign.center,
+                  fontSize: FontSize.s16.sp,
+                  fontWeight: FontWightManager.fontWeightLight,
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Phone Number required';
+                    }
+                  },
+                  onSubmitted: (value) {
+                    print(value);
+                  },
+                ),
+                SizedBox(height: 10.h,),
+                CustomButton(
+                  width: 330.w,
+                  txt: 'Next',
+                  high: 50.h,
+                  onPressed: () {
+                    if (textGlobalKey.currentState!.validate()) {
+                      toast(state: StatusCase.SUCCES, msg: 'Send Otp Success');
+                    }
+                    phoneNum.clear();
+                     NormalNav(ctx: context,screen: OtpView());
+                  },
+                  outLineBorder: false,
+                  colorButton: ColorsManager.buttonColor,
+                  colorTxt: ColorsManager.whiteColor,
+                  fontWeight: FontWightManager.fontWeightMedium,
+                  fontSize: FontSize.s18,
+                ),
+                CustomTextClick(
+                  txt: 'Cancel',
+                  function: (){
+                    lastNav(ctx: context);
+                  },
+                  fontfamily: FontManager.fontFamilyButton,
+                  fontWeight: FontWightManager.fontWeightRegular, // Fixed typo here
+                  fontSize: FontSize.s15.sp,
+                  textAlign: TextAlign.center,
+                  color: ColorsManager.staticTextColor,
+                ),
+              ],
             ),
-            CustomTextClick(
-              txt: 'Cancel',
-              function: (){
-                lastNav(ctx: context);
-              },
-              fontfamily: FontManager.fontFamilyButton,
-              fontWeight: FontWightManager.fontWeightRegular, // Fixed typo here
-              fontSize: FontSize.s15.sp,
-              textAlign: TextAlign.center,
-              color: ColorsManager.staticTextColor,
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -45,6 +45,8 @@ enum StatusCase {SUCCES , ERROR , EARNING}
   return c ;
  }
 final divider = Divider(color:Colors.white.withOpacity(0.3), height: 1);
+final dividerList = Divider(color:Colors.grey.shade300, height: 1);
+
 loading (double size) {
   return LoadingAnimationWidget.hexagonDots(
     size: size,

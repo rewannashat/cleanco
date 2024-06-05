@@ -80,7 +80,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             index: 1,
           ),
           Page(
-            image: 'assets/images/on3.png',
+            image: 'assets/images/on1.png',
             title: 'Work Quality',
             titleButton: 'Next',
             index: 2,
